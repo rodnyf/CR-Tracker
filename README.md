@@ -3,7 +3,7 @@
 A tool to track your TFSA Contribution Room from Questrade,
 
 ## Installation
-* Use `pip`/`pip3`:
+* Use `pip`:
 
    `pip install CR-tracker`
 
@@ -17,8 +17,8 @@ A tool to track your TFSA Contribution Room from Questrade,
    2. Account Drop Down > Click 'App hub' > Click 'Register a Personal App' 
    3. Ensure 'OAuth scopes' retrieve balances, positions, orders and executions is checked 
    4. Under Personal apps, Click '+ New Device' > Click 'Generate New token' 
-   5. Copy this token!
-![Capture1 Apphub.PNG](CR-Tracker%2FCapture1%20Apphub.PNG)
+   5. Copy this token!\
+      ![](https://github.com/rodnyf/CR-Tracker/blob/8163a8611680bb1d0935c4d2a622d953328942a5/CR-Tracker/Capture1%20Apphub.PNG)
    
 ### Connect to Questrade
 ```
@@ -42,9 +42,15 @@ If there is already a valid token, you can simply connect to questrade without d
 Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None```
 
 The method that contribution_room is calculated is determined by which parameters are inputted by the user\
-**FOR BEST RESULTS: Use the Contribution Room from your CRA my Account on January 1 of the given year**
+**FOR BEST RESULTS: Use the Contribution Room from your [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html) on January 1 of the given year**
 
-Below is the hierarchy of the contribution room
+
+`given_year` is the year from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+`given_contr_room` is the contribution room from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+```open_year``` is the year that the Account was opened. Default value is 2009- when the TFSA was first introduced
+```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
+
+Below is the hierarchy of the contribution room. This function will choose the **first** method above, that is available 
 
 1. If ```given_year``` and ```given_contr_room``` are both provided,
 only account activity in the given_year and onwards will be used  
@@ -52,10 +58,7 @@ only account activity in the given_year and onwards will be used
 3. If ```open_year``` is not provided then the search period will start when the user turned 18 (after 2009) \
 based on the ```birth_year``` 
 
-This function will choose the **first** method above, that is available 
 
-```open_year``` is the year that the Account was opened. Default value is 2009- when the TFSA was first introduced
-```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
 
 ```
 x=CR.contribution_room(given_contr_room=35500,given_year=2022,token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
@@ -102,3 +105,27 @@ x[2]
 => 
 | New_Year_Dollar_Limit | Contr_Room_Jan1 | Year | Deposits | Withdrawals | Current_Contr_Room |
 ```
+
+
+#### [create_df]()
+Creates a dataframe containing the activity from questrade 
+```
+ create_df(start='2023-09-01', end='2024-01-01', account_type='TFSA',token=None):
+```
+Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), account_type='TFSA',token=None```
+
+
+`start` is the beginning of the activity search period\
+`end `  is the end of the activity search period\
+```account_type```  can be {'TFSA','RRSP','FHSA'}
+
+#### [max_contr_room_Limit]()
+
+Calculates the Maximum contribution room based on your birthday in a given year
+```
+max_contr_room_Limit(birthyear=2000,end_yr=2024):
+```
+Accepts: ``` birthyear=1900, end_yr=date.today().year```
+
+```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
+`end_yr` is the given year or the year you want to calculate the max contribution room for
