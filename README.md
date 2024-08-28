@@ -5,7 +5,7 @@ A tool to track your TFSA Contribution Room from Questrade,
 ## Installation
 * Use `pip`:
 
-   `pip install CR-tracker`
+   `pip install CR-Tracker`
 
 ## Getting Started
 
@@ -117,7 +117,7 @@ Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), acc
 
 `start` is the beginning of the activity search period\
 `end `  is the end of the activity search period\
-```account_type```  can be {'TFSA','RRSP','FHSA'}
+```account_type```  can be ['TFSA','RRSP','FHSA']
 
 #### [max_contr_room_Limit]()
 
@@ -127,5 +127,5 @@ max_contr_room_Limit(birthyear=2000,end_yr=2024):
 ```
 Accepts: ``` birthyear=1900, end_yr=date.today().year```
 
-```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
+```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009\
 `end_yr` is the given year or the year you want to calculate the max contribution room for
