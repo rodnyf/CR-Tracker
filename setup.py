@@ -3,8 +3,8 @@ import pathlib
 from setuptools import setup, find_packages
 
 setup(name='CR-Tracker',
-      version='0.19.0',
-      description='A tool to track your TFSA Contribution Room from Questrade',
+      version='0.2.0',
+      description='A tool to track your TFSA Contribution Room from Questrade and Wealthsimple',
       author='RF',
       author_email='me@gmail.com',
       license='MIT',
