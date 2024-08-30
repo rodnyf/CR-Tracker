@@ -1,6 +1,6 @@
 # Contribution-Room-Tracker
 
-A tool to track your TFSA Contribution Room from Questrade,
+A tool to track your TFSA Contribution Room from Questrade & Wealthsimple.
 
 ## Installation
 * Use `pip`:
@@ -9,6 +9,39 @@ A tool to track your TFSA Contribution Room from Questrade,
 
 ## Getting Started
 
+### Connect To Wealthsimple and get Deposits & Withdrawals
+This will ask for OTP if enabled
+```
+import CR_Tracker as CR
+df_ws=Wsimple_data(email, password)
+```
+
+### Calculate Contribution Room from Wealthsimple only
+
+[contribution_room_ws]()
+
+Accepts: ```df_ws,given_year=None, given_contr_room=None, open_year=2009, birth_year=1990```
+
+The method that contribution_room is calculated is determined by which parameters are inputted by the user\
+**FOR BEST RESULTS: Use the Contribution Room from your [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html) on January 1 of the given year**
+
+
+`given_year` is the year from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+`given_contr_room` is the contribution room from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+```open_year``` is the year that the Account was opened. Default value is 2009- when the TFSA was first introduced
+```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
+
+Below is the hierarchy of the contribution room. This function will choose the **first** method above, that is available 
+
+1. If ```given_year``` and ```given_contr_room``` are both provided,
+only account activity in the given_year and onwards will be used  
+2. If either ```given_year``` or ```given_contr_room``` are not provided then the search period will be from ```open_year```
+3. If ```open_year``` is not provided then the search period will start when the user turned 18 (after 2009) \
+based on the ```birth_year``` 
+```
+x=CR.contribution_room_ws(df_ws,given_year=2024, given_contr_room=20000)
+x[2]
+```
 ### Get the refresh token from Questrade
 
 1. Familiarise yourself with the [Security documentation](https://www.questrade.com/api/documentation/security) for the Questrade API.
@@ -37,7 +70,7 @@ If there is already a valid token, you can simply connect to questrade without d
    CR.connect_questrade()
    ```
 
-## Calulating your Contribution Room
+## Calulating your Contribution Room for both Questrade and Wealthsimple Combined
 #### [Contribution Room]()
 Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None```
 
