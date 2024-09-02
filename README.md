@@ -9,14 +9,14 @@ contribution room for Wealthsimple only and combined with Questrade.
 ## Installation
 * Use `pip`:
 
-   `pip install CR-Tracker`
+   `pip install crtracker`
 
 ## Getting Started
 
 ### Connect To Wealthsimple and get Deposits & Withdrawals
 This will ask for OTP if enabled
 ```
-import CR_Tracker as CR
+import crtracker as CR
 df_ws=CR.Wsimple_data(email, password)
 ```
 
@@ -59,7 +59,7 @@ x[2]
    
 ### Connect to Questrade
 ```
-   import CR_Tracker as CR
+   import crtracker as CR
    
    CR.connect_questrade(token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
    ```
