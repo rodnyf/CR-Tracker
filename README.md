@@ -4,7 +4,7 @@ A tool to track your TFSA Contribution Room from Questrade & Wealthsimple.
 
 ## Change log
 Version '0.20.0' introduced the functionality to pull data from Wealthsimple via Wsimple api and calculate\
-contribution room for Wealthsimple only and combined with Questrade.
+contribution room for Wealthsimple exclusively or combined with Questrade.
 
 ## Installation
 * Use `pip`:
@@ -16,7 +16,7 @@ contribution room for Wealthsimple only and combined with Questrade.
 ### Connect To Wealthsimple and get Deposits & Withdrawals
 This will ask for OTP if enabled
 ```
-import crtracker as CR
+import cr-tracker as CR
 df_ws=CR.Wsimple_data(email, password)
 ```
 

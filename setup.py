@@ -2,8 +2,8 @@ import pathlib
 
 from setuptools import setup, find_packages
 
-setup(name='crtracker',
-      version='0.21.0',
+setup(name='cr_tracker',
+      version='0.22.0',
       description='A tool to track your TFSA Contribution Room from Questrade and Wealthsimple',
       author='RF',
       author_email='me@gmail.com',
