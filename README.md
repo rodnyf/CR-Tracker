@@ -9,14 +9,14 @@ contribution room for Wealthsimple exclusively or combined with Questrade.
 ## Installation
 * Use `pip`:
 
-   `pip install crtracker`
+   `pip install cr-tracker`
 
 ## Getting Started
 
-### Connect To Wealthsimple and get Deposits & Withdrawals
+### Connect To Wealthsimple to get Deposits & Withdrawals
 This will ask for OTP if enabled
 ```
-import cr-tracker as CR
+import cr_tracker as CR
 df_ws=CR.Wsimple_data(email, password)
 ```
 
@@ -59,7 +59,7 @@ x[2]
    
 ### Connect to Questrade
 ```
-   import crtracker as CR
+   import cr_tracker as CR
    
    CR.connect_questrade(token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
    ```
@@ -70,13 +70,13 @@ x[2]
 
 If there is already a valid token, you can simply connect to questrade without declaring a token
    ```
-   import CR_Tracker as CR
+   import cr_tracker as CR
    CR.connect_questrade()
    ```
 
 ## Calulating your Contribution Room for both Questrade and Wealthsimple Combined
 #### [Contribution Room]()
-Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None```
+Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None,df_ws=None```
 
 The method that contribution_room is calculated is determined by which parameters are inputted by the user\
 **FOR BEST RESULTS: Use the Contribution Room from your [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html) on January 1 of the given year**
@@ -98,7 +98,7 @@ based on the ```birth_year```
 
 
 ```
-x=CR.contribution_room(given_contr_room=35500,given_year=2022,token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
+x=CR.contribution_room(given_contr_room=35500,given_year=2022,token=iksxxxxxxxxxx_0Eyivxxxxxxxb0)
 x
 
 => start_year is 2022
@@ -147,7 +147,7 @@ x[2]
 #### [create_df]()
 Creates a dataframe containing the activity from questrade 
 ```
- create_df(start='2023-09-01', end='2024-01-01', account_type='TFSA',token=None):
+ CR.create_df(start='2023-09-01', end='2024-01-01', account_type='TFSA',token=None):
 ```
 Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), account_type='TFSA',token=None```
 
@@ -160,7 +160,7 @@ Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), acc
 
 Calculates the Maximum contribution room based on your birthday in a given year
 ```
-max_contr_room_Limit(birthyear=2000,end_yr=2024):
+CR.max_contr_room_Limit(birthyear=2000,end_yr=2024):
 ```
 Accepts: ``` birthyear=1900, end_yr=date.today().year```
 
