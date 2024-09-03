@@ -1,14 +1,51 @@
 # Contribution-Room-Tracker
 
-A tool to track your TFSA Contribution Room from Questrade,
+A tool to track your TFSA Contribution Room from Questrade & Wealthsimple.
+
+## Change log
+Version '0.20.0' introduced the functionality to pull data from Wealthsimple via Wsimple api and calculate\
+contribution room for Wealthsimple exclusively or combined with Questrade.
 
 ## Installation
 * Use `pip`:
 
-   `pip install CR-Tracker`
+   `pip install cr-tracker`
 
 ## Getting Started
 
+### Connect To Wealthsimple to get Deposits & Withdrawals
+This will ask for OTP if enabled
+```
+import cr_tracker as CR
+df_ws=CR.Wsimple_data(email, password)
+```
+
+### Calculate Contribution Room from Wealthsimple only
+
+[contribution_room_ws]()
+
+Accepts: ```df_ws,given_year=None, given_contr_room=None, open_year=2009, birth_year=1990```
+
+The method that contribution_room is calculated is determined by which parameters are inputted by the user\
+**FOR BEST RESULTS: Use the Contribution Room from your [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html) on January 1 of the given year**
+
+
+`given_year` is the year from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+`given_contr_room` is the contribution room from CRA when you login to [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html)\
+```open_year``` is the year that the Account was opened. Default value is 2009- when the TFSA was first introduced
+```birth_year```  is the year that the user was born. Default value is 1990- those born before 1990 were 18 years old in 2009
+
+Below is the hierarchy of the contribution room. This function will choose the **first** method above, that is available 
+
+1. If ```given_year``` and ```given_contr_room``` are both provided,
+only account activity in the given_year and onwards will be used  
+2. If either ```given_year``` or ```given_contr_room``` are not provided then the search period will be from ```open_year```
+3. If ```open_year``` is not provided then the search period will start when the user turned 18 (after 2009) \
+based on the ```birth_year``` 
+```
+x=CR.contribution_room_ws(df_ws,given_year=2024, given_contr_room=20000)
+x[2]
+```
 ### Get the refresh token from Questrade
 
 1. Familiarise yourself with the [Security documentation](https://www.questrade.com/api/documentation/security) for the Questrade API.
@@ -22,7 +59,7 @@ A tool to track your TFSA Contribution Room from Questrade,
    
 ### Connect to Questrade
 ```
-   import CR_Tracker as CR
+   import cr_tracker as CR
    
    CR.connect_questrade(token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
    ```
@@ -33,13 +70,13 @@ A tool to track your TFSA Contribution Room from Questrade,
 
 If there is already a valid token, you can simply connect to questrade without declaring a token
    ```
-   import CR_Tracker as CR
+   import cr_tracker as CR
    CR.connect_questrade()
    ```
 
-## Calulating your Contribution Room
+## Calulating your Contribution Room for both Questrade and Wealthsimple Combined
 #### [Contribution Room]()
-Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None```
+Accepts: ```given_year=None, given_contr_room=None, open_year=2009, birth_year=1990, token=None,df_ws=None```
 
 The method that contribution_room is calculated is determined by which parameters are inputted by the user\
 **FOR BEST RESULTS: Use the Contribution Room from your [CRA My Account](https://www.canada.ca/en/revenue-agency/services/e-services/digital-services-individuals/account-individuals.html) on January 1 of the given year**
@@ -61,7 +98,7 @@ based on the ```birth_year```
 
 
 ```
-x=CR.contribution_room(given_contr_room=35500,given_year=2022,token=ikWQKJHLKJdfdjza5a_0EyivzTJk8hfg9b0)
+x=CR.contribution_room(given_contr_room=35500,given_year=2022,token=iksxxxxxxxxxx_0Eyivxxxxxxxb0)
 x
 
 => start_year is 2022
@@ -110,7 +147,7 @@ x[2]
 #### [create_df]()
 Creates a dataframe containing the activity from questrade 
 ```
- create_df(start='2023-09-01', end='2024-01-01', account_type='TFSA',token=None):
+ CR.create_df(start='2023-09-01', end='2024-01-01', account_type='TFSA',token=None):
 ```
 Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), account_type='TFSA',token=None```
 
@@ -123,7 +160,7 @@ Accepts: ``` start='2009-01-01', end=str(date.today() + timedelta(days=30)), acc
 
 Calculates the Maximum contribution room based on your birthday in a given year
 ```
-max_contr_room_Limit(birthyear=2000,end_yr=2024):
+CR.max_contr_room_Limit(birthyear=2000,end_yr=2024):
 ```
 Accepts: ``` birthyear=1900, end_yr=date.today().year```
 
